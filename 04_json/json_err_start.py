@@ -2,6 +2,7 @@
 
 # use the JSON module
 import json
+from json import JSONDecodeError
 
 
 def main():
@@ -18,7 +19,11 @@ def main():
         }'''
 
     # parse the JSON data using loads
-    data = json.loads(jsonStr)
+    try:
+        data = json.loads(jsonStr)
+    except JSONDecodeError as err:
+        print("whops! ", err)
+        print(err.msg, "in line ", err.lineno, "column ", err.colno)
 
     # print information from the data structure
     print("Sandwich: " + data['sandwich'])
